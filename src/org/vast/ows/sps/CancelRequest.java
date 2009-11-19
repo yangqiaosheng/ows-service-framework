@@ -41,24 +41,24 @@ import org.vast.ows.OWSRequest;
  */
 public class CancelRequest extends OWSRequest
 {
-	protected String taskID;
+	protected String ID;
 	
 	
 	public CancelRequest()
 	{
-		setService(SPSUtils.SPS);
+		setService("SPS");
 		setOperation("Cancel");
 	}
 	
 	
-	public String getTaskID()
+	public String getID()
 	{
-		return taskID;
+		return ID;
 	}
 
 
-	public void setTaskID(String id)
+	public void setID(String id)
 	{
-		this.taskID = id;
+		this.ID = id;
 	}
 }

@@ -26,6 +26,7 @@ import org.vast.util.TimeInfo;
 import org.vast.xml.DOMHelper;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.vast.ogc.OGCRegistry;
 import org.vast.ogc.gml.GMLEnvelopeReader;
 import org.vast.ogc.gml.GMLException;
 import org.vast.ogc.gml.GMLTimeReader;
@@ -285,7 +286,7 @@ public class GetResultReaderV10 extends AbstractRequestReader<GetResultRequest>
     protected void checkParameters(GetResultRequest request, OWSExceptionReport report) throws OWSException
     {
     	// check common params
-		super.checkParameters(request, report, OWSUtils.SOS);
+		super.checkParameters(request, report, OGCRegistry.SOS);
     	
     	// need offering
 		if (request.getOffering() == null)

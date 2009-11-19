@@ -41,24 +41,24 @@ import org.vast.ows.OWSResponse;
  */
 public class CancelResponse extends OWSResponse
 {
-	protected StatusReport statusReport;
+	protected ProgressReport progressReport;
 		
 
 	public CancelResponse()
 	{
-		this.service = SPSUtils.SPS;
+		this.service = "SPS";
         this.messageType = "CancelResponse";
 	}
 
 
-	public StatusReport getStatusReport()
+	public ProgressReport getProgressReport()
 	{
-		return statusReport;
+		return progressReport;
 	}
 
 
-	public void setStatusReport(StatusReport statusReport)
+	public void setProgressReport(ProgressReport progressReport)
 	{
-		this.statusReport = statusReport;
+		this.progressReport = progressReport;
 	}
 }

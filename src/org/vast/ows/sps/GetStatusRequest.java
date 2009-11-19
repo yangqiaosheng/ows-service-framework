@@ -24,7 +24,6 @@
 package org.vast.ows.sps;
 
 import org.vast.ows.OWSRequest;
-import org.vast.util.DateTime;
 
 
 /**
@@ -43,50 +42,26 @@ import org.vast.util.DateTime;
  */
 public class GetStatusRequest extends OWSRequest
 {
-	protected String taskID;
-	protected DateTime since;
-	protected String format;
+	public final static String ALL_TASKS = "ALL_TASKS";
+	
+	protected String id;
 	
 	
 	public GetStatusRequest()
 	{
-		setService(SPSUtils.SPS);
+		setService("SPS");
 		setOperation("GetStatus");
 	}
 	
 	
-	public String getTaskID()
+	public String getId()
 	{
-		return taskID;
+		return id;
 	}
 
 
-	public void setTaskID(String taskID)
+	public void setId(String taskID)
 	{
-		this.taskID = taskID;
-	}
-	
-	
-	public DateTime getSince()
-	{
-		return since;
-	}
-
-
-	public void setSince(DateTime since)
-	{
-		this.since = since;
-	}
-
-
-	public String getFormat()
-	{
-		return format;
-	}
-
-
-	public void setFormat(String format)
-	{
-		this.format = format;
+		this.id = taskID;
 	}
 }

@@ -25,6 +25,7 @@ package org.vast.ows.wcs;
 import java.util.StringTokenizer;
 import org.vast.xml.DOMHelper;
 import org.w3c.dom.*;
+import org.vast.ogc.OGCRegistry;
 import org.vast.ows.*;
 
 
@@ -98,7 +99,7 @@ public class DescribeCoverageReaderV11 extends AbstractRequestReader<DescribeCov
             }
         }
 
-        super.checkParameters(request, report, OWSUtils.WCS);
+        super.checkParameters(request, report, OGCRegistry.WCS);
         report.process();
         
         return request;
@@ -122,7 +123,7 @@ public class DescribeCoverageReaderV11 extends AbstractRequestReader<DescribeCov
 			request.getCoverages().add(val);
 		}
 		
-		super.checkParameters(request, report, OWSUtils.WCS);
+		super.checkParameters(request, report, OGCRegistry.WCS);
 		report.process();
 		
 		return request;

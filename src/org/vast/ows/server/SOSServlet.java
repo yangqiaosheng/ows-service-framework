@@ -34,10 +34,10 @@ import org.vast.ows.GetCapabilitiesRequest;
 import org.vast.ows.OWSException;
 import org.vast.ows.OWSRequest;
 import org.vast.ows.OWSUtils;
+import org.vast.ows.sos.DescribeSensorRequest;
 import org.vast.ows.sos.GetObservationRequest;
 import org.vast.ows.sos.GetResultRequest;
 import org.vast.ows.sos.SOSException;
-import org.vast.ows.swe.DescribeSensorRequest;
 import org.vast.ows.util.PostRequestFilter;
 import org.vast.util.TimeInfo;
 import org.vast.xml.DOMHelper;
@@ -369,7 +369,7 @@ public abstract class SOSServlet extends OWSServlet
 			//  get query string
 			String queryString = req.getQueryString();            
             if (queryString == null)
-                throw new OWSException("Invalid KVP Request");
+                sendErrorMessage(resp.getOutputStream(), "Invalid request");
             
             // parse query arguments
             logger.info("GET REQUEST: " + queryString + " from IP " + req.getRemoteAddr());
@@ -389,11 +389,21 @@ public abstract class SOSServlet extends OWSServlet
 	        else if (query instanceof GetResultRequest)
 	        	processQuery((GetResultRequest)query);
 		}
+		catch (SOSException e)
+		{
+			try
+            {
+                sendErrorMessage(resp.getOutputStream(), e.getMessage());
+            }
+            catch (IOException e1)
+            {
+                e.printStackTrace();
+            }
+		}
         catch (OWSException e)
         {
             try
             {
-                resp.setContentType("text/xml");
                 sendErrorMessage(resp.getOutputStream(), e.getMessage());
             }
             catch (IOException e1)
@@ -451,11 +461,21 @@ public abstract class SOSServlet extends OWSServlet
 	        else if (query instanceof GetResultRequest)
 	        	processQuery((GetResultRequest)query);
 		}
+        catch (SOSException e)
+		{
+            try
+            {
+                sendErrorMessage(resp.getOutputStream(), e.getMessage());
+            }
+            catch (IOException e1)
+            {
+                e.printStackTrace();
+            }
+		}
         catch (OWSException e)
         {
             try
             {
-                resp.setContentType("text/xml");
                 sendErrorMessage(resp.getOutputStream(), "Invalid request or unrecognized version");
             }
             catch (IOException e1)
@@ -482,7 +502,6 @@ public abstract class SOSServlet extends OWSServlet
         {
             try
             {
-                resp.getOutputStream().flush();
                 resp.getOutputStream().close();
             }
             catch (IOException e)

@@ -20,13 +20,14 @@
 
 package org.vast.ows.sos;
 
+import org.vast.util.TimeInfo;
 import org.vast.xml.DOMHelper;
 import org.vast.ogc.OGCRegistry;
+import org.vast.ogc.gml.GMLEnvelopeWriter;
+import org.vast.ogc.gml.GMLException;
 import org.vast.ogc.gml.GMLTimeWriter;
 import org.vast.ows.AbstractRequestWriter;
 import org.vast.ows.OWSException;
-import org.vast.ows.OWSUtils;
-import org.vast.ows.swe.DescribeSensorRequest;
 import org.w3c.dom.Element;
 
 
@@ -48,11 +49,13 @@ import org.w3c.dom.Element;
  */
 public class DescribeSensorWriterV10 extends AbstractRequestWriter<DescribeSensorRequest>
 {
-	protected GMLTimeWriter timeWriter;
+	protected GMLEnvelopeWriter bboxWriter;
+    protected GMLTimeWriter timeWriter;
     
     
 	public DescribeSensorWriterV10()
 	{
+        bboxWriter = new GMLEnvelopeWriter();
         timeWriter = new GMLTimeWriter();
 	}
 
@@ -84,7 +87,7 @@ public class DescribeSensorWriterV10 extends AbstractRequestWriter<DescribeSenso
 	@Override
 	public Element buildXMLQuery(DOMHelper dom, DescribeSensorRequest request) throws OWSException
 	{
-		dom.addUserPrefix("sos", OGCRegistry.getNamespaceURI(OWSUtils.SOS, request.getVersion()));			
+		dom.addUserPrefix("sos", OGCRegistry.getNamespaceURI(OGCRegistry.SOS, request.getVersion()));			
 		
 		// root element
 		Element rootElt = dom.createElement("sos:GetObservation");
@@ -93,6 +96,22 @@ public class DescribeSensorWriterV10 extends AbstractRequestWriter<DescribeSenso
 		// procedure
         if (request.getProcedure() != null)
         	dom.setElementValue(rootElt, "sos:procedure", request.getProcedure());
+        
+		// time instant or period
+        try
+        {
+            TimeInfo timeInfo = request.getTime();
+            if (timeInfo != null)
+            {
+                Element timeElt = timeWriter.writeTime(dom, timeInfo);
+                Element elt = dom.addElement(rootElt, "sos:time");
+                elt.appendChild(timeElt);
+            }
+        }
+        catch (GMLException e)
+        {
+            throw new SOSException("Error while writing time", e);
+        }
 		
 		// result format
 		dom.setAttributeValue(rootElt, "@resultFormat", request.getFormat());

@@ -22,6 +22,8 @@
 
 package org.vast.ows.sps;
 
+import org.vast.util.DateTime;
+
 
 /**
  * <p><b>Title:</b>
@@ -37,13 +39,27 @@ package org.vast.ows.sps;
  * @date Feb, 29 2008
  * @version 1.0
  */
-public class SubmitResponse extends TaskingResponse<StatusReport>
+public class SubmitResponse extends GetStatusResponse
 {
+	protected DateTime latestResponseTime;
+	
 
 	public SubmitResponse()
 	{
-		this.service = SPSUtils.SPS;
+		this.service = "SPS";
         this.messageType = "SubmitResponse";
-        report = new StatusReport();
+        progressReport = new ProgressReport();
+	}
+
+
+	public DateTime getLatestResponseTime()
+	{
+		return latestResponseTime;
+	}
+
+
+	public void setLatestResponseTime(DateTime latestResponseTime)
+	{
+		this.latestResponseTime = latestResponseTime;
 	}
 }

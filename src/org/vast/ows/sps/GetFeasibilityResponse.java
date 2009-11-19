@@ -24,6 +24,8 @@ package org.vast.ows.sps;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.vast.ows.OWSResponse;
+import org.vast.util.DateTime;
 
 
 /**
@@ -40,17 +42,30 @@ import java.util.List;
  * @date Feb, 25 2008
  * @version 1.0
  */
-public class GetFeasibilityResponse extends TaskingResponse<FeasibilityReport>
+public class GetFeasibilityResponse extends OWSResponse
 {
+	protected FeasibilityStudy feasibilityStudy;
 	protected List<Alternative> alternatives;
+	protected DateTime latestResponseTime;
 		
 
 	public GetFeasibilityResponse()
 	{
-		this.service = SPSUtils.SPS;
+		this.service = "SPS";
         this.messageType = "GetFeasibilityResponse";
-        this.report = new FeasibilityReport();
         this.alternatives = new ArrayList<Alternative>();
+	}
+
+
+	public FeasibilityStudy getFeasibilityStudy()
+	{
+		return feasibilityStudy;
+	}
+
+
+	public void setFeasibilityStudy(FeasibilityStudy feasibilityStudy)
+	{
+		this.feasibilityStudy = feasibilityStudy;
 	}
 
 
@@ -64,4 +79,16 @@ public class GetFeasibilityResponse extends TaskingResponse<FeasibilityReport>
 	{
 		this.alternatives = alternatives;
 	}
+
+
+	public DateTime getLatestResponseTime()
+	{
+		return latestResponseTime;
+	}
+
+
+	public void setLatestResponseTime(DateTime latestResponseTime)
+	{
+		this.latestResponseTime = latestResponseTime;
+	}	
 }

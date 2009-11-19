@@ -24,9 +24,10 @@ import java.util.StringTokenizer;
 import org.vast.util.TimeInfo;
 import org.vast.xml.DOMHelper;
 import org.w3c.dom.Element;
+import org.vast.ogc.OGCRegistry;
+import org.vast.ogc.gml.GMLException;
+import org.vast.ogc.gml.GMLTimeReader;
 import org.vast.ows.*;
-import org.vast.ows.sos.SOSException;
-import org.vast.ows.swe.DescribeSensorRequest;
 
 
 /**
@@ -46,10 +47,12 @@ import org.vast.ows.swe.DescribeSensorRequest;
  */
 public class DescribeSensorReaderV10 extends AbstractRequestReader<DescribeSensorRequest>
 {
+	protected GMLTimeReader timeReader;
 	
 	
 	public DescribeSensorReaderV10()
 	{
+        timeReader = new GMLTimeReader();
 	}
 	
 	
@@ -137,6 +140,21 @@ public class DescribeSensorReaderV10 extends AbstractRequestReader<DescribeSenso
 		String procedure = dom.getElementValue(requestElt, "procedure");
 		request.setProcedure(procedure);
 		
+		// time
+		try
+		{
+			Element timeElt = dom.getElement(requestElt, "time/*");
+			if (timeElt != null)
+			{
+				TimeInfo time = timeReader.readTimePrimitive(dom, timeElt);
+				request.setTime(time);
+			}
+		}
+		catch (GMLException e)
+		{
+			report.add(new OWSException(OWSException.invalid_param_code, "TIME"));
+		}
+		
 		// format
 		String format = dom.getAttributeValue(requestElt, "@outputFormat");
 		request.setFormat(format);
@@ -154,15 +172,15 @@ public class DescribeSensorReaderV10 extends AbstractRequestReader<DescribeSenso
 	protected void checkParameters(DescribeSensorRequest request, OWSExceptionReport report) throws OWSException
 	{
 		// check common params + generate exception
-		super.checkParameters(request, report);
+		super.checkParameters(request, report, OGCRegistry.SOS);
 		
 		// need procedure
 		if (request.getProcedure() == null)
 			report.add(new OWSException(OWSException.missing_param_code, "PROCEDURE"));
 		
 		// need format
-		if (request.getProcedure() == null)
-			report.add(new OWSException(OWSException.missing_param_code, "FORMAT"));
+		if (request.getFormat() == null)
+			report.add(new OWSException(OWSException.missing_param_code, "RESPONSE_FORMAT"));
 		
 		report.process();
 	}

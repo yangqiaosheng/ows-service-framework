@@ -143,7 +143,6 @@ public abstract class WCSServlet extends OWSServlet
         {
             try
             {
-                resp.setContentType("text/xml");
                 sendErrorMessage(resp.getOutputStream(), e.getMessage());
             }
             catch (IOException e1)
@@ -159,7 +158,6 @@ public abstract class WCSServlet extends OWSServlet
         {
             try
             {
-                resp.getOutputStream().flush();
                 resp.getOutputStream().close();
             }
             catch (IOException e)

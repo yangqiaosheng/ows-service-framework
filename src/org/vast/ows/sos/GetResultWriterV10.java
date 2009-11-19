@@ -32,7 +32,6 @@ import org.vast.ogc.gml.GMLException;
 import org.vast.ogc.gml.GMLTimeWriter;
 import org.vast.ows.AbstractRequestWriter;
 import org.vast.ows.OWSException;
-import org.vast.ows.OWSUtils;
 import org.w3c.dom.Element;
 
 
@@ -131,7 +130,7 @@ public class GetResultWriterV10 extends AbstractRequestWriter<GetResultRequest>
 	@Override
 	public Element buildXMLQuery(DOMHelper dom, GetResultRequest request) throws OWSException
 	{
-		dom.addUserPrefix("sos", OGCRegistry.getNamespaceURI(OWSUtils.SOS, request.getVersion()));
+		dom.addUserPrefix("sos", OGCRegistry.getNamespaceURI(OGCRegistry.SOS, request.getVersion()));
 		dom.addUserPrefix("ogc", OGCRegistry.getNamespaceURI(OGCRegistry.OGC));
 		
 		// root element

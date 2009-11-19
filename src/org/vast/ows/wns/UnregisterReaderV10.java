@@ -24,6 +24,7 @@ package org.vast.ows.wns;
 
 import org.vast.xml.DOMHelper;
 import org.w3c.dom.*;
+import org.vast.ogc.OGCRegistry;
 import org.vast.ows.*;
 
 
@@ -65,7 +66,7 @@ public class UnregisterReaderV10 extends AbstractRequestReader<UnregisterRequest
 		String userId = dom.getElementValue(requestElt, "ID");
 		request.setUserId(userId);
 				
-		super.checkParameters(request, report, OWSUtils.WNS);		
+		super.checkParameters(request, report, OGCRegistry.WNS);		
 		return request;
 	}
 }

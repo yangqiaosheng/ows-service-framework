@@ -23,6 +23,7 @@
 package org.vast.ows.wcs;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 import org.vast.ows.OWSRequest;
 import org.vast.util.Bbox;
@@ -64,6 +65,7 @@ public class GetCoverageRequest extends OWSRequest
         
         fieldSubsets = new ArrayList<FieldSubset>();
         times = new ArrayList<TimeInfo>();
+        vendorParameters = new Hashtable<String, String>();
         gridCrs = new WCSRectifiedGridCrs();
         
         width = height = depth = -1;

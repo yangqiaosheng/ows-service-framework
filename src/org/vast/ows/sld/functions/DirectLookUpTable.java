@@ -20,6 +20,8 @@
 
 package org.vast.ows.sld.functions;
 
+import org.vast.ows.sld.MappingFunction;
+
 
 /**
  * <p><b>Title:</b><br/>
@@ -36,7 +38,7 @@ package org.vast.ows.sld.functions;
  * @date Apr 3, 2006
  * @version 1.0
  */
-public class DirectLookUpTable extends AbstractMappingFunction
+public class DirectLookUpTable implements MappingFunction
 {
     protected double[] tableData;
     
@@ -47,7 +49,6 @@ public class DirectLookUpTable extends AbstractMappingFunction
     }
     
     
-    @Override
     public double compute(double indexVal)
     {
         int index = (int)indexVal;

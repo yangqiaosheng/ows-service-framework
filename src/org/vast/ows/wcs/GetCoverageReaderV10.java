@@ -24,7 +24,6 @@ package org.vast.ows.wcs;
 
 import java.text.ParseException;
 import java.util.StringTokenizer;
-import org.vast.xml.QName;
 import org.vast.util.Bbox;
 import org.vast.util.DateTimeFormat;
 import org.vast.util.Interval;
@@ -250,7 +249,7 @@ public class GetCoverageReaderV10 extends AbstractRequestReader<GetCoverageReque
             // other axis subsets and vendor specific parameters
             else
             {
-            	request.getExtensions().put(new QName(argName.toUpperCase()), argValue);
+            	request.getVendorParameters().put(argName.toUpperCase(), argValue);
             }
         }
 		
@@ -459,7 +458,7 @@ public class GetCoverageReaderV10 extends AbstractRequestReader<GetCoverageReque
 	protected void checkParameters(GetCoverageRequest request, OWSExceptionReport report) throws OWSException
     {
 		// check common params
-		super.checkParameters(request, report, OWSUtils.WCS);
+		super.checkParameters(request, report, OGCRegistry.WCS);
 		
 		// need coverage
 		if (request.getCoverage() == null)

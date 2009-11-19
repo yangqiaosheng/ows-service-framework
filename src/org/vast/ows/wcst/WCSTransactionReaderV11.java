@@ -24,6 +24,7 @@ package org.vast.ows.wcst;
 
 import org.vast.xml.DOMHelper;
 import org.w3c.dom.*;
+import org.vast.ogc.OGCRegistry;
 import org.vast.ows.*;
 import org.vast.ows.wcs.WCSException;
 
@@ -113,6 +114,6 @@ public class WCSTransactionReaderV11 extends AbstractRequestReader<WCSTransactio
 		
 		// check common params
 		// needs to be called at the end since it throws the exception if report is non empty
-		super.checkParameters(request, report, OWSUtils.WCS);
+		super.checkParameters(request, report, OGCRegistry.WCS);
 	}
 }

@@ -53,7 +53,7 @@ public class DescribeResultAccessResponse extends OWSResponse
 	
 	public DescribeResultAccessResponse()
 	{
-		this.service = SPSUtils.SPS;
+		this.service = "SPS";
         this.messageType = "DescribeResultAccessResponse";
 	}
 

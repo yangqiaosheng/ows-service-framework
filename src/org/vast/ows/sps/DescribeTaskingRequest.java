@@ -47,7 +47,7 @@ public class DescribeTaskingRequest extends OWSRequest
 	
 	public DescribeTaskingRequest()
 	{
-		setService(SPSUtils.SPS);
+		setService("SPS");
 		setOperation("DescribeTasking");
 	}
 	

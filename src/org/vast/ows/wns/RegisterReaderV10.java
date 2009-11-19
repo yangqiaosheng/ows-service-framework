@@ -24,6 +24,7 @@ package org.vast.ows.wns;
 
 import org.vast.xml.DOMHelper;
 import org.w3c.dom.*;
+import org.vast.ogc.OGCRegistry;
 import org.vast.ows.*;
 
 
@@ -121,7 +122,7 @@ public class RegisterReaderV10 extends AbstractRequestReader<RegisterRequest>
 	protected void checkParameters(RegisterRequest request, OWSExceptionReport report) throws OWSException
     {
 		// check common params
-		super.checkParameters(request, report, OWSUtils.WNS);
+		super.checkParameters(request, report, OGCRegistry.WNS);
 		
 		// need single user or multi user
 		WNSUser user = request.getUser();

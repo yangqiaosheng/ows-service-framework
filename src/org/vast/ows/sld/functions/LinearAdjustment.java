@@ -20,6 +20,8 @@
 
 package org.vast.ows.sld.functions;
 
+import org.vast.ows.sld.MappingFunction;
+
 
 /**
  * <p><b>Title:</b><br/>
@@ -35,7 +37,7 @@ package org.vast.ows.sld.functions;
  * @date Apr 3, 2006
  * @version 1.0
  */
-public class LinearAdjustment extends AbstractMappingFunction
+public class LinearAdjustment implements MappingFunction
 {
     protected double gain;
     protected double offset;
@@ -48,7 +50,6 @@ public class LinearAdjustment extends AbstractMappingFunction
     }
     
     
-    @Override
     public double compute(double inVal)
     {
         return inVal * gain + offset;

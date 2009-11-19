@@ -24,7 +24,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import org.vast.xml.DOMHelper;
 import org.vast.ows.sld.VectorSymbolizer.DirectionType;
-import org.vast.ows.sld.functions.StringIdProvider;
 import org.vast.util.MessageSystem;
 import org.vast.util.URIResolver;
 import org.w3c.dom.Element;
@@ -49,19 +48,11 @@ import org.w3c.dom.NodeList;
 public class SLDReader
 {
 	private ParameterReader cssReader;
-    protected StringIdProvider iconIdProvider;
+    	
 	
-	
-    public SLDReader()
-    {
-        this.cssReader = new ParameterReader();
-    }
-    
-    
-	public SLDReader(StringIdProvider iconIdProvider)
+	public SLDReader()
 	{
-		this();
-		this.iconIdProvider = iconIdProvider;
+		cssReader = new ParameterReader();        
 	}
 	
 	
@@ -328,12 +319,6 @@ public class SLDReader
         ScalarParameter opacity = cssReader.readCssParameter(dom, opacityElt);
         rasterSym.setOpacity(opacity);
         
-        // read raster pool size
-        String rasterPoolSize = dom.getElementValue(symElt, "RasterPoolSize");
-        if(rasterPoolSize!=null){
-        	rasterSym.setTexPoolSize(Integer.parseInt(rasterPoolSize));
-        }
-        
         // read raster dimensions
         Element dimElt = dom.getElement(symElt, "Dimensions");
         Dimensions dim = readDimensions(dom, dimElt);
@@ -578,6 +563,11 @@ public class SLDReader
             // image format
 			img.setFormat(dom.getElementValue(graphicElt, "ExternalGraphic/Format"));
             
+            // image url
+            Element urlElt = dom.getElement(graphicElt, "ExternalGraphic/OnlineResource");
+            ScalarParameter url = cssReader.readCssParameter(dom, urlElt);            
+            img.setUrl(url);
+            
             // set base folder
             String baseFolder = dom.getElementValue(graphicElt, "ExternalGraphic/Base");
             if (baseFolder != null)
@@ -591,12 +581,6 @@ public class SLDReader
                 }
                 catch (URISyntaxException e){}
             }
-            
-            // image url
-            iconIdProvider.setPrefix(img.getBaseFolder());
-            Element urlElt = dom.getElement(graphicElt, "ExternalGraphic/OnlineResource");
-            ScalarParameter url = cssReader.readCssParameter(dom, urlElt, iconIdProvider);            
-            img.setUrl(url);
 			
 			graphic.getGlyphs().add(img);
 		}
@@ -615,11 +599,6 @@ public class SLDReader
 		Element rotationElt = dom.getElement(graphicElt, "Rotation");
 		ScalarParameter rotation = cssReader.readCssParameter(dom, rotationElt);
 		graphic.setRotation(rotation);
-		
-		// read spacing
-        Element spacingElt = dom.getElement(graphicElt, "Spacing");
-        ScalarParameter spacing = cssReader.readCssParameter(dom, spacingElt);
-        graphic.setSpacing(spacing);
 		
 		return graphic;
 	}

@@ -22,6 +22,7 @@
 
 package org.vast.ows.wcs;
 
+import java.util.Enumeration;
 import org.vast.ogc.OGCRegistry;
 import org.vast.ows.*;
 import org.w3c.dom.*;
@@ -99,6 +100,15 @@ public class GetCoverageWriterV11 extends AbstractRequestWriter<GetCoverageReque
         // FORMAT
         urlBuff.append("&FORMAT=" + request.getFormat());
         
+        // vendor parameters
+        Enumeration<String> paramEnum = request.getVendorParameters().keys();
+        while (paramEnum.hasMoreElements())
+        {
+        	String key = paramEnum.nextElement();
+        	String val = request.getVendorParameters().get(key);
+        	urlBuff.append("&" + key.toUpperCase() + "=" + val);
+        }        	
+        
         // EXCEPTIONS
         if (request.getExceptionType() != null)
         	urlBuff.append("&EXCEPTIONS=" + request.getExceptionType());
@@ -113,8 +123,8 @@ public class GetCoverageWriterV11 extends AbstractRequestWriter<GetCoverageReque
 	@Override
 	public Element buildXMLQuery(DOMHelper dom, GetCoverageRequest request) throws OWSException
 	{
-		dom.addUserPrefix(QName.DEFAULT_PREFIX, OGCRegistry.getNamespaceURI(OWSUtils.WCS, request.getVersion()));
-		dom.addUserPrefix("ows", OGCRegistry.getNamespaceURI(OWSUtils.OWS, "1.1"));
+		dom.addUserPrefix(QName.DEFAULT_PREFIX, OGCRegistry.getNamespaceURI(OGCRegistry.WCS, request.getVersion()));
+		dom.addUserPrefix("ows", OGCRegistry.getNamespaceURI(OGCRegistry.OWS, "1.1"));
 		
 		// root element
 		Element rootElt = dom.createElement("GetCoverage");

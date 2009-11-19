@@ -22,6 +22,8 @@
 
 package org.vast.ows.sps;
 
+import org.vast.ows.OWSResponse;
+
 
 /**
  * <p><b>Title:</b>
@@ -37,13 +39,27 @@ package org.vast.ows.sps;
  * @date Feb, 29 2008
  * @version 1.0
  */
-public class GetStatusResponse extends TaskingResponse<StatusReport>
+public class GetStatusResponse extends OWSResponse
 {
-	
+	protected ProgressReport progressReport;
+		
+
 	public GetStatusResponse()
 	{
-		this.service = SPSUtils.SPS;
+		this.service = "SPS";
         this.messageType = "GetStatusResponse";
-        report = new StatusReport();
+        progressReport = new ProgressReport();
+	}
+
+
+	public ProgressReport getProgressReport()
+	{
+		return progressReport;
+	}
+
+
+	public void setProgressReport(ProgressReport progressReport)
+	{
+		this.progressReport = progressReport;
 	}
 }

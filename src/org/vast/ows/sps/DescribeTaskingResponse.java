@@ -42,63 +42,76 @@ import org.vast.ows.OWSResponse;
  */
 public class DescribeTaskingResponse extends OWSResponse
 {
-	protected DataComponent taskingParameters;
-	protected DataComponent updatableParameters;
-	protected DataComponent feasibilityReportExtendedData;
-	protected DataComponent statusReportExtendedData;
+	protected DataComponent commonTaskingParameters;
+	protected DataComponent additionalFeasibilityParameters;
+	protected DataComponent additionalSubmitParameters;
+	protected DataComponent feasibilityStudyParameters;
+	protected DataComponent progressReportParameters;
 	
 
 	public DescribeTaskingResponse()
 	{
-		this.service = SPSUtils.SPS;
+		this.service = "SPS";
         this.messageType = "DescribeTaskingResponse";
 	}
 
 
-	public DataComponent getTaskingParameters()
+	public DataComponent getCommonTaskingParameters()
 	{
-		return taskingParameters;
+		return commonTaskingParameters;
 	}
 
 
-	public void setTaskingParameters(DataComponent taskingParameters)
+	public void setCommonTaskingParameters(DataComponent commonTaskingParameters)
 	{
-		this.taskingParameters = taskingParameters;
+		this.commonTaskingParameters = commonTaskingParameters;
 	}
 
 
-	public DataComponent getUpdatableParameters()
+	public DataComponent getAdditionalFeasibilityParameters()
 	{
-		return updatableParameters;
+		return additionalFeasibilityParameters;
 	}
 
 
-	public void setUpdatableParameters(DataComponent updatableParameters)
+	public void setAdditionalFeasibilityParameters(DataComponent additionalFeasibilityParameters)
 	{
-		this.updatableParameters = updatableParameters;
+		this.additionalFeasibilityParameters = additionalFeasibilityParameters;
 	}
 
 
-	public DataComponent getFeasibilityReportExtendedData()
+	public DataComponent getAdditionalSubmitParameters()
 	{
-		return feasibilityReportExtendedData;
+		return additionalSubmitParameters;
 	}
 
 
-	public void setFeasibilityReportExtendedData(DataComponent feasibilityReportParameters)
+	public void setAdditionalSubmitParameters(DataComponent additionalSubmitParameters)
 	{
-		this.feasibilityReportExtendedData = feasibilityReportParameters;
+		this.additionalSubmitParameters = additionalSubmitParameters;
 	}
 
 
-	public DataComponent getStatusReportExtendedData()
+	public DataComponent getFeasibilityStudyParameters()
 	{
-		return statusReportExtendedData;
+		return feasibilityStudyParameters;
 	}
 
 
-	public void setStatusReportExtendedData(DataComponent statusReportParameters)
+	public void setFeasibilityStudyParameters(DataComponent feasibilityStudyParameters)
 	{
-		this.statusReportExtendedData = statusReportParameters;
+		this.feasibilityStudyParameters = feasibilityStudyParameters;
+	}
+
+
+	public DataComponent getProgressReportParameters()
+	{
+		return progressReportParameters;
+	}
+
+
+	public void setProgressReportParameters(DataComponent progressReportParameters)
+	{
+		this.progressReportParameters = progressReportParameters;
 	}	
 }

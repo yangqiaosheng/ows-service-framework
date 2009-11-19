@@ -22,8 +22,9 @@ package org.vast.ows;
 
 import java.io.*;
 import java.util.Hashtable;
+
 import javax.servlet.http.HttpServletResponse;
-import org.vast.xml.QName;
+
 import org.vast.ogc.OGCRegistry;
 
 
@@ -52,13 +53,12 @@ public class OWSRequest
 	protected String version;
 	protected String operation;
     protected String exceptionType;
-    protected Hashtable<QName, Object> extensions;
+    protected Hashtable<String, String> vendorParameters;
     
 	
     public OWSRequest()
     {
     	exceptionType = EXCEPTION_MIME_TYPE;
-    	extensions = new Hashtable<QName, Object>();
     }
     
     
@@ -178,20 +178,20 @@ public class OWSRequest
     }
     
     
-    public Hashtable<QName, Object> getExtensions()
+    public Hashtable<String, String> getVendorParameters()
 	{
-		return extensions;
+		return vendorParameters;
 	}
-    
 
-	public HttpServletResponse getResponse()
-	{
+
+	public HttpServletResponse getResponse() {
 		return response;
 	}
 
 
-	public void setResponse(HttpServletResponse response)
-	{
+	public void setResponse(HttpServletResponse response) {
 		this.response = response;
 	}
+
+
 }

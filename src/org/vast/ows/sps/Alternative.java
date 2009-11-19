@@ -41,20 +41,34 @@ import org.vast.sweCommon.SWEData;
  */
 public class Alternative
 {
-	protected String title;
+	protected String id;
+	protected double successRate = Double.NaN;
 	protected String description;
 	protected SWEData taskingParameters;
+	protected SWEData studyParameters;
 
 
-	public String getTitle()
+	public String getId()
 	{
-		return title;
+		return id;
 	}
 
 
-	public void setTitle(String title)
+	public void setId(String id)
 	{
-		this.title = title;
+		this.id = id;
+	}
+
+
+	public double getSuccessRate()
+	{
+		return successRate;
+	}
+
+
+	public void setSuccessRate(double successRate)
+	{
+		this.successRate = successRate;
 	}
 
 
@@ -79,5 +93,17 @@ public class Alternative
 	public void setTaskingParameters(SWEData taskingParameters)
 	{
 		this.taskingParameters = taskingParameters;
+	}
+
+
+	public SWEData getStudyParameters()
+	{
+		return studyParameters;
+	}
+
+
+	public void setStudyParameters(SWEData studyParameters)
+	{
+		this.studyParameters = studyParameters;
 	}
 }

@@ -23,6 +23,7 @@
 package org.vast.ows.wcs;
 
 import java.text.NumberFormat;
+import java.util.Enumeration;
 import org.vast.ogc.OGCRegistry;
 import org.vast.ogc.gml.GMLEnvelopeWriter;
 import org.vast.ows.*;
@@ -132,6 +133,15 @@ public class GetCoverageWriterV10 extends AbstractRequestWriter<GetCoverageReque
         // FORMAT
         urlBuff.append("&FORMAT=" + request.getFormat());
         
+        // vendor parameters
+        Enumeration<String> paramEnum = request.getVendorParameters().keys();
+        while (paramEnum.hasMoreElements())
+        {
+        	String key = paramEnum.nextElement();
+        	String val = request.getVendorParameters().get(key);
+        	urlBuff.append("&" + key.toUpperCase() + "=" + val);
+        }        	
+        
         // EXCEPTIONS
         if (request.getExceptionType() != null)
         	urlBuff.append("&EXCEPTIONS=" + request.getExceptionType());
@@ -146,7 +156,7 @@ public class GetCoverageWriterV10 extends AbstractRequestWriter<GetCoverageReque
 	@Override
 	public Element buildXMLQuery(DOMHelper dom, GetCoverageRequest request) throws OWSException
 	{
-		dom.addUserPrefix(QName.DEFAULT_PREFIX, OGCRegistry.getNamespaceURI(OWSUtils.WCS));
+		dom.addUserPrefix(QName.DEFAULT_PREFIX, OGCRegistry.getNamespaceURI(OGCRegistry.WCS));
 		dom.addUserPrefix("gml", OGCRegistry.getNamespaceURI(OGCRegistry.GML));
 		
 		// root element
